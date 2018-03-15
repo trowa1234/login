@@ -1,25 +1,35 @@
 <template>
-    <div class="login">
-        <div class="wrapper">
-            <div class="hd">
-                <div class="log-cloud cloud1"></div>
-                <div class="log-cloud cloud2"></div>
-                <div class="log-cloud cloud3"></div>
-                <div class="log-cloud cloud4"></div>
-                <h1>welcome!</h1>
-            </div>
-            <div class="bd">
-                <transition name="slide">
-                    <p v-if='isUsernameError||isPasswordError' class="errTip">用户名或密码不能为空</p>
-                </transition>
-                <p><input type="text" placeholder="Username" :class="{'err' : isUsernameError}" v-model="userName" @input="input1"></p>
-                <p><input type="password" placeholder="Password" :class="{'err' : isPasswordError}" v-model="passWord" @input="input2"></p>
-                <p>
-                    <a href="##" @click="login" class="btn">Login</a>
-                </p>
+    <transition name="slider">
+        <div class="login">
+            <div class="wrapper">
+                <div class="hd">
+                    <div class="log-cloud cloud1"></div>
+                    <div class="log-cloud cloud2"></div>
+                    <div class="log-cloud cloud3"></div>
+                    <div class="log-cloud cloud4"></div>
+                    <h1>welcome!</h1>
+                </div>
+                <div class="bd">
+                    <transition name="slide">
+                        <span v-if='isUsernameError||isPasswordError' class="errTip">用户名或密码不能为空</span>
+                    </transition>
+                    <p>
+                        <input type="text" placeholder="输入用户名" :class="{'err' : isUsernameError}" v-model="userName" @input="input1">
+                    </p>
+                    <p>
+                        <input type="password" placeholder="输入密码" :class="{'err' : isPasswordError}" v-model="passWord" @input="input2">
+                    </p>
+                    <p>
+                        <a href="##" @click="login" class="btn">Login</a>
+                    </p>
+                    <p class="reg-btn">
+                        <router-link to="/register">没有账号？马上注册！</router-link>
+                    </p>
+
+                </div>
             </div>
         </div>
-    </div>
+    </transition>
 </template>
 
 <script>
@@ -46,22 +56,18 @@ export default {
                 this.isPasswordError = true;
                 return;
             } else {
-                console.log('dengl')
+                console.log("dengl");
             }
         },
         input1() {
-            if (this.userName === "") {
-                this.isUsernameError = true;
-            } else {
-                this.isUsernameError = false;
-            }
+            this.userName === ""
+                ? (this.isUsernameError = true)
+                : (this.isUsernameError = false);
         },
         input2() {
-            if (this.passWord === "") {
-                this.isPasswordError = true;
-            } else {
-                this.isPasswordError = false;
-            }
+            this.passWord === ""
+                ? (this.isPasswordError = true)
+                : (this.isPasswordError = false);
         }
     }
 };
@@ -149,6 +155,15 @@ export default {
                     color: #fff;
                     text-decoration: none;
                 }
+                &.reg-btn {
+                    margin-top: 10px;
+                    text-align: right;
+                    padding-right: 36px;
+                    a {
+                        text-decoration: none;
+                        color: #76e9d8;
+                    }
+                }
             }
         }
     }
@@ -176,6 +191,7 @@ export default {
         animation: cloud4 19s linear infinite;
     }
 }
+
 @-webkit-keyframes cloud1 {
     0% {
         left: 200px;
@@ -184,6 +200,7 @@ export default {
         left: -130px;
     }
 }
+
 @keyframes cloud1 {
     0% {
         left: 200px;
@@ -192,6 +209,7 @@ export default {
         left: -130px;
     }
 }
+
 @-webkit-keyframes cloud2 {
     0% {
         left: 500px;
@@ -200,6 +218,7 @@ export default {
         left: -90px;
     }
 }
+
 @keyframes cloud2 {
     0% {
         left: 500px;
@@ -208,6 +227,7 @@ export default {
         left: -90px;
     }
 }
+
 @-webkit-keyframes cloud3 {
     0% {
         left: 620px;
@@ -216,6 +236,7 @@ export default {
         left: -70px;
     }
 }
+
 @keyframes cloud3 {
     0% {
         left: 620px;
@@ -224,6 +245,7 @@ export default {
         left: -70px;
     }
 }
+
 @-webkit-keyframes cloud4 {
     0% {
         left: 100px;
@@ -232,6 +254,7 @@ export default {
         left: -70px;
     }
 }
+
 @keyframes cloud4 {
     0% {
         left: 100px;
@@ -245,8 +268,20 @@ export default {
 .slide-leave-active {
     transition: all 0.2s ease;
 }
+
 .slide-enter,
 .slide-leave-to {
     transform: translate3d(-100%, 0, 0);
 }
+
+.slider-enter-active,
+.slider-leave-active {
+    transition: all 0.3s ease;
+}
+
+.slider-enter,
+.slider-leave-to {
+    transform: translate3d(-100%, 0, 0);
+}
 </style>
+
